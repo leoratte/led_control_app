@@ -15,4 +15,7 @@ export class Tab2Page implements OnInit {
     this.favColors = this.colors.getAllColors();
     console.log(this.favColors);
   }
+  deleteColor(item) {
+    
+  }
 }
