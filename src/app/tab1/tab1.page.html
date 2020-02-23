@@ -1,17 +1,77 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Color</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="bulb" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-list lines="none">
+          <ion-item>
+            <ion-range
+              [(ngModel)]="red"
+              min="0"
+              max="255"
+              step="1"
+              color="red"
+              (ionChange)="updatePreview()"
+            ></ion-range>
+          </ion-item>
+          <ion-item>
+            <ion-range
+              [(ngModel)]="green"
+              min="0"
+              max="255"
+              step="1"
+              color="green"
+              (ionChange)="updatePreview()"
+            ></ion-range>
+          </ion-item>
+          <ion-item>
+            <ion-range
+              [(ngModel)]="blue"
+              min="0"
+              max="255"
+              step="1"
+              color="blue"
+              (ionChange)="updatePreview()"
+            ></ion-range>
+          </ion-item>
+          <ion-item>
+            <ion-range
+              [(ngModel)]="brightness"
+              min="0"
+              max="1"
+              step="0.01"
+              (ionChange)="updatePreview()"
+            >
+              <ion-icon slot="start" name="sunny"></ion-icon>
+              <ion-icon size="large" slot="end" name="sunny"></ion-icon>
+            </ion-range>
+          </ion-item>
+          <ion-item>
+          </ion-item>
+          <ion-item>
+            <ion-button (click)="addFav()" size="default">
+              <ion-icon slot="start" name="add"></ion-icon>
+              Add to favorite
+            </ion-button>
+            <ion-button (click)="applyPreview()" size="default">
+              <ion-icon slot="start" name="eye"></ion-icon>Apply
+            </ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
