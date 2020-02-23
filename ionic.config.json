@@ -1,0 +1,7 @@
+{
+  "name": "led-app-angular",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
