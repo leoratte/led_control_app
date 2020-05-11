@@ -1,16 +1,73 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Animation</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="selectLed()">
+        <ion-icon name="bulb" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-list lines="none">
+          <ion-list-header>
+            <ion-title>Animations</ion-title>
+            <ion-button (click)="toggleReorderGroup()">Reorder</ion-button>
+          </ion-list-header>
 
+          <ion-reorder-group #reorder1 (ionItemReorder)="doReorderAnimations($event)">
+            <ion-item-sliding *ngFor="let animation of animations">
+              <ion-item (click)="sendAnimation(animation)" button>
+                <ion-label>{{animation.name}}</ion-label>
+                <ion-reorder slot="end"></ion-reorder>
+              </ion-item>
+              <ion-item-options side="start">
+                <ion-item-option (click)="addFavorite(animation)">
+                  Add Favorite
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          </ion-reorder-group>
+        </ion-list>
+
+        <ion-list lines="none">
+          <ion-list-header>
+            <ion-title>Custom Animations</ion-title>
+            <!-- <ion-button (click)="createCustomAnimation()">New</ion-button> -->
+          </ion-list-header>
+
+          <ion-reorder-group #reorder2 (ionItemReorder)="doReorderCustomAnimations($event)">
+            <ion-item-sliding *ngFor="let animation of customAnimations">
+              <ion-item (click)="sendAnimation(animation)" button>
+                <ion-label>{{animation.name}}</ion-label>
+                <ion-reorder slot="end"></ion-reorder>
+              </ion-item>
+              <ion-item-options side="start">
+                <ion-item-option (click)="addFavorite(animation)">
+                  Add Favorite
+                </ion-item-option>
+              </ion-item-options>
+              <ion-item-options side="end">
+                <ion-item-option color="danger" (click)="removeCustom(animation)">
+                  Delete
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          </ion-reorder-group>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/animation-creation']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>      
 </ion-content>

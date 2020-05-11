@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { AppComponent } from '../app.component';
-import { LedConnection } from '../led-connection';
-import { Tab2Page } from '../tab2/tab2.page';
-import { ColorsService } from '../colors/colors.service';
+import { Component, ViewChild } from '@angular/core';
+import { ToastController, IonItem } from '@ionic/angular';
+
+import { ColorsService } from '../services/colors.service';
+import { SelectLedService } from '../services/select-led.service';
 
 @Component({
   selector: 'app-tab1',
@@ -10,17 +10,20 @@ import { ColorsService } from '../colors/colors.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  ledConnection: LedConnection;
+  // @ViewChild('preview') previewItem: IonItem;
   red = 255;
   green = 255;
   blue = 255;
   brightness = 1.0;
+  preview = '#ffffff';
 
-  constructor(app: AppComponent, private colors: ColorsService) {
-    this.ledConnection = app.getLedConnection();
-  }
+  constructor(
+    private colors: ColorsService,
+    private toastCtrl: ToastController,
+    private selectLedService: SelectLedService
+  ) {}
 
-  getManualColor() {
+  getManualColor(): string {
     const rgb = [
       Math.floor(this.red * this.brightness),
       Math.floor(this.green * this.brightness),
@@ -29,18 +32,29 @@ export class Tab1Page {
     return this.rgbToHex(rgb);
   }
 
-  updatePreview() {}
+  updatePreview(): void {
+    this.preview = this.getManualColor();
+  }
 
-  addFav() {
+  addFav(): void {
     this.colors.addColor(this.getManualColor());
+    // toast
+    this.toastCtrl
+      .create({
+        message: 'new favorite color added',
+        position: 'top',
+        duration: 1000
+      })
+      .then(val => {
+        val.present();
+      });
   }
 
-  applyPreview() {
-    this.ledConnection.sendStatic(this.getManualColor());
+  applyPreview(): void {
+    this.colors.sendColor(this.getManualColor());
   }
 
-
-  rgbToHex(rgb) {
+  rgbToHex(rgb: number[]): string {
     let ret = '#';
     for (let i = 0; i < 3; i++) {
       let hex = Number(rgb[i]).toString(16);
@@ -50,5 +64,9 @@ export class Tab1Page {
       ret += hex;
     }
     return ret;
+  }
+
+  selectLed() {
+    this.selectLedService.presentLedSelection();
   }
 }

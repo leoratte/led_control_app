@@ -1,5 +1,5 @@
 {
-  "name": "led-app-angular",
+  "name": "Led Control",
   "integrations": {
     "capacitor": {}
   },

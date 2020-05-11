@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>Favorite</ion-title>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="selectLed()">
         <ion-icon name="bulb" size="large"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -18,26 +18,39 @@
         <ion-list lines="none">
           <ion-list-header>
             <ion-title>Favorite Colors</ion-title>
-            <ion-button>Reorder</ion-button>
+            <ion-button (click)="toggleReorderGroup()">Reorder</ion-button>
           </ion-list-header>
-
-          <ion-reorder-group>
-            
-            <ion-item-sliding *ngFor="let color of favColors" >
-              <ion-item [style.--background]="color"> <ion-label>{{color}}</ion-label></ion-item>
+          <ion-reorder-group #reorder1 (ionItemReorder)="doReorderColors($event)">          
+            <ion-item-sliding *ngFor="let color of favColors">
+              <ion-item [style.--background]="color"  (click)="sendColor(color)" button>
+                <ion-reorder slot="end"></ion-reorder>
+              </ion-item>
               <ion-item-options side="end">
-                <ion-item-option color="danger" (click)="deleteColor(this)">
+                <ion-item-option color="danger" (click)="deleteColor(color)">
                   Remove
                 </ion-item-option>
               </ion-item-options>
             </ion-item-sliding>
           </ion-reorder-group>
         </ion-list>
+
         <ion-list lines="none">
           <ion-list-header>
             <ion-title>Favorite Animations</ion-title>
           </ion-list-header>
-          <ion-reorder-group></ion-reorder-group>
+          <ion-reorder-group #reorder2 (ionItemReorder)="doReorderAnimations($event)">
+            <ion-item-sliding *ngFor="let animation of favAnimations">
+              <ion-item (click)="sendAnimation(animation)" button>
+                <ion-label>{{animation.name}}</ion-label>
+                <ion-reorder slot="end"></ion-reorder>
+              </ion-item>
+              <ion-item-options side="end">
+                <ion-item-option color="danger" (click)="removeFavAnimation(animation)">
+                  Remove
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          </ion-reorder-group>
         </ion-list>
       </ion-col>
     </ion-row>

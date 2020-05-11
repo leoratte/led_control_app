@@ -7,15 +7,19 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item button>
+        <ion-item button (click)="changeIp()">
           <ion-icon name="globe" slot="start"></ion-icon>
-          <ion-label>IP</ion-label>
+          <ion-label>IP:</ion-label>
         </ion-item>
-        <!-- <ion-item>
+        <ion-item button (click)="connect()">
+          <ion-icon name="globe" slot="start"></ion-icon>
+          <ion-label>Connect</ion-label>
+        </ion-item>
+        <ion-item>
           <ion-icon name="moon" slot="start"></ion-icon>
           <ion-label>darkmode</ion-label>
-          <ion-toggle id="toggle-darkmode"></ion-toggle>
-        </ion-item> -->
+          <ion-toggle (ionChange)="onClick($event)" slot="end"></ion-toggle>
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>

@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
+    </ion-buttons>
+    <ion-title>AnimationCreation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-list lines="none">
+          <ion-list-header>
+            <ion-title>Create Animation</ion-title>  
+            <ion-button (click)="finish()">Finish</ion-button>
+          </ion-list-header>
+          <ion-item>
+            <ion-label position="floating">Name</ion-label>
+            <ion-input type="text" [(ngModel)]="animation.name" name="name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Start Color</ion-label>
+            <ion-input type="text" [(ngModel)]="animationStep.startColor" name="startColor"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">End Color</ion-label>
+            <ion-input type="text" [(ngModel)]="animationStep.endColor" name="endColor"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Start Color</ion-label>
+            <ion-input type="number" [(ngModel)]="animationStep.duration" name="duration"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-list-header>
+            <ion-title>Current Steps</ion-title>
+            <ion-button (click)="addStep()">Add Step</ion-button>
+          </ion-list-header>
+          <ion-item *ngFor="let step of animation.steps">
+            <ion-label>Start{{step.startColor}}</ion-label>
+            <ion-label>{{step.endColor}}</ion-label>
+            <ion-label>{{step.duration}}</ion-label>
+          </ion-item>
+        </ion-list>
+        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
