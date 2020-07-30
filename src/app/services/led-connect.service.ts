@@ -15,7 +15,7 @@ export class LedConnectService {
 
   sendStatic(sendColor: string): void {
     const msg = {
-      name: this.selectLedService.getLed(),
+      id: this.selectLedService.getLed(),
       type: 'static',
       color: sendColor
     };
@@ -24,7 +24,7 @@ export class LedConnectService {
 
   sendAnimation(animation: string, speed: number): void {
     const msg = {
-      name: this.selectLedService.getLed(),
+      id: this.selectLedService.getLed(),
       type: 'animation',
       animationType: animation,
       animationSpeed: speed
@@ -34,7 +34,7 @@ export class LedConnectService {
 
   sendCustomAnimation(steps: any[]): void {
     const msg = {
-      name: this.selectLedService.getLed(),
+      id: this.selectLedService.getLed(),
       type: 'animation',
       animationType: 'custom',
       animationSteps: steps,
