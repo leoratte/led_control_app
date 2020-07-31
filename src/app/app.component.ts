@@ -1,10 +1,12 @@
 import { Component , OnInit} from '@angular/core';
 
-import { Platform, AlertController, ToastController } from '@ionic/angular';
+import { Platform, AlertController, ToastController, ModalController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { WebsocketService } from './services/websocket.service';
+import { SelectLedService } from './services/select-led.service';
+
 
 
 
@@ -20,7 +22,7 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private alertCtrl: AlertController,
     private websocketService: WebsocketService,
-    private toastController: ToastController
+    private selectLedService: SelectLedService
   ) {
     this.initializeApp();
   }
@@ -73,5 +75,9 @@ export class AppComponent implements OnInit {
   onClick(event: any) {
     const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
     // console.log(systemDark);
+  }
+
+  manageLed(): void {
+    this.selectLedService.presentManageLed();
   }
 }

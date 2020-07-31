@@ -47,10 +47,6 @@ export class Tab3Page {
     this.animationService.addFavAnimation(animation);
   }
 
-  createCustomAnimation() {
-    console.log('test');
-  }
-
   selectLed() {
     this.selectLedService.presentLedSelection();
   }

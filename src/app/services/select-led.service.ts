@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, ModalController } from '@ionic/angular';
 import { StorageService } from './storage.service';
+import { ManageLedComponent } from '../components/manage-led/manage-led.component';
+import { PRIMARY_OUTLET } from '@angular/router';
 
 export interface Led {
   id: number;
@@ -15,19 +17,19 @@ const LEDMAP_KEY = 'ledmap';
 })
 
 export class SelectLedService {
-  private leds: number[] = [0, 1, 2, 3, 4];
-  private ledmap: Led[] = [
+  public ledmap: Led[] = [
     {id: 0, name: 'all' , enabled: true },
-    {id: 1, name: 'LED1' , enabled: false },
+    {id: 1, name: 'LED1' , enabled: true },
     {id: 2, name: 'LED2' , enabled: false },
     {id: 3, name: 'LED3' , enabled: false },
     {id: 4, name: 'LED4' , enabled: false },
-  ]
+  ];
   private led: Led = this.ledmap[0];
 
   constructor(
     private storageService: StorageService,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    private modalCtrl: ModalController
     ) {
       this.load();
     }
@@ -47,7 +49,9 @@ export class SelectLedService {
 
   load(): void {
     this.storageService.getItems(LEDMAP_KEY).then((ledmap: Led[]) => {
-      this.ledmap = ledmap;
+      if (ledmap.length === 5) {
+        this.ledmap = ledmap;
+      }
     });
   }
 
@@ -58,13 +62,16 @@ export class SelectLedService {
   async presentLedSelection() {
     const buttons: any[] = [];
     for (const led of this.ledmap) {
-      buttons.push({
-        text: led.name,
-        icon: 'bulb',
-        handler: () => {
-          this.led = led;
-        }
-      });
+      if (led.enabled) {
+        const bulb = (led === this.led) ? 'bulb-outline' : 'bulb';
+        buttons.push({
+          text: led.name,
+          icon: bulb,
+          handler: () => {
+            this.led = led;
+          }
+        });
+    }
     }
     buttons.push({
       text: 'cancel',
@@ -77,5 +84,22 @@ export class SelectLedService {
       buttons: [...buttons]
     });
     await actionSheet.present();
+  }
+
+  async presentManageLed() {
+    const modal: HTMLIonModalElement = await this.modalCtrl.create({
+      component: ManageLedComponent,
+      componentProps: {
+        ledmap: this.ledmap
+      }
+    });
+
+    modal.onDidDismiss().then((detail) => {
+      if (detail.data !== undefined) {
+        this.ledmap = detail.data;
+        this.store();
+      }
+   });
+    return await modal.present();
   }
 }
