@@ -17,7 +17,7 @@ const LEDMAP_KEY = 'ledmap';
 })
 
 export class SelectLedService {
-  public ledmap: Led[] = [
+  private ledmap: Led[] = [
     {id: 0, name: 'all' , enabled: true },
     {id: 1, name: 'LED1' , enabled: true },
     {id: 2, name: 'LED2' , enabled: false },
@@ -36,15 +36,6 @@ export class SelectLedService {
 
   getLed(): number {
     return this.led.id;
-  }
-
-  setLedMap(ledmap: Led[]): void {
-    this.ledmap = ledmap;
-    this.store();
-  }
-
-  getLedMap(): Led[] {
-    return this.ledmap;
   }
 
   load(): void {

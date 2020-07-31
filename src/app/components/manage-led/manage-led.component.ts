@@ -8,7 +8,7 @@ import { ModalController, NavParams } from '@ionic/angular';
   styleUrls: ['./manage-led.component.scss'],
 })
 export class ManageLedComponent {
-  private ledmap: Led[];
+  public ledmap: Led[];
   constructor(
     private modalCtrl: ModalController,
     private navParams: NavParams

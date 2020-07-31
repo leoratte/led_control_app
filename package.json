@@ -1,6 +1,6 @@
 {
   "name": "led_control",
-  "version": "0.0.1",
+  "version": "0.1",
   "author": "Leonard Anderweit",
   "homepage": "https://ionicframework.com/",
   "scripts": {
