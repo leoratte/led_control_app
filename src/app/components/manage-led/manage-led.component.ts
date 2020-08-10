@@ -17,13 +17,6 @@ export class ManageLedComponent {
 ionViewWillEnter() {
   this.ledmap = this.navParams.get('ledmap');
 }
-changeToggle(checked, index) {
-  this.ledmap[index].enabled = checked;
-}
-
-changeName(name, index) {
-  this.ledmap[index].name = name;
-}
 
 async cancel() {
   await this.modalCtrl.dismiss();

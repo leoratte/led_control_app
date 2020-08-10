@@ -12,16 +12,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ManageLedComponent } from './components/manage-led/manage-led.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ManageLedComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    FormsModule],
   providers: [
     StatusBar,
     SplashScreen,

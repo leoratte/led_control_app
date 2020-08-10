@@ -9,27 +9,11 @@
     <ion-row>
       <ion-col>
         <ion-list lines="full" class="ion-no-margin ion-no-padding">
-          <ion-item>
-            <ion-label position="stacked">LED1</ion-label>
-            <ion-input required type="text" (ionChange)="changeName($event.detail.value, 1)" value="{{ledmap[1].name}}"></ion-input>
-            <ion-toggle slot="end" (ionChange)="changeToggle($event.detail.checked, 1)" checked="{{ledmap[1].enabled}}"></ion-toggle>
+          <ion-item *ngFor="let i of [1,2,3,4]">
+            <ion-label position="stacked">LED{{i}}</ion-label>
+            <ion-input required type="text" [(ngModel)]="ledmap[i].name" [(value)]="ledmap[i].name"></ion-input>
+            <ion-toggle slot="end" [(ngModel)]="ledmap[i].enabled" [(checked)]="ledmap[i].enabled"></ion-toggle>
           </ion-item>
-          <ion-item>
-            <ion-label position="stacked">LED2</ion-label>
-            <ion-input required type="text" (ionChange)="changeName($event.detail.value, 2)" value="{{ledmap[2].name}}"></ion-input>
-            <ion-toggle slot="end" (ionChange)="changeToggle($event.detail.checked, 2)" checked="{{ledmap[2].enabled}}"></ion-toggle>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">LED3</ion-label>
-            <ion-input required type="text" (ionChange)="changeName($event.detail.value, 3)" value="{{ledmap[3].name}}"></ion-input>
-            <ion-toggle slot="end" (ionChange)="changeToggle($event.detail.checked, 3)" checked="{{ledmap[3].enabled}}"></ion-toggle>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">LED4</ion-label>
-            <ion-input required type="text" (ionChange)="changeName($event.detail.value, 4)" value="{{ledmap[4].name}}"></ion-input>
-            <ion-toggle slot="end" (ionChange)="changeToggle($event.detail.checked, 4)" checked="{{ledmap[4].enabled}}"></ion-toggle>
-          </ion-item>
-
           <ion-item>
             <ion-button (click)="cancel()" size="default" >
               Cancel
