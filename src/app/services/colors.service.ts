@@ -42,7 +42,7 @@ export class ColorsService {
   }
 
   load(): void {
-    this.storageService.getItems(COLOR_KEY).then((colors: string[]) => {
+    this.storageService.load(COLOR_KEY).then((colors: string[]) => {
       for (const iterator of colors) {
         this.addColor(iterator);
       }

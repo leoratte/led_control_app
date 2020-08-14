@@ -8,7 +8,7 @@ export class StorageService {
 
   constructor(private storage: Storage) { }
 
-  getItems(key: string): Promise<any> {
+  load(key: string): Promise<any> {
     return this.storage.get(key);
   }
 

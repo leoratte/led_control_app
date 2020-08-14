@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { StorageService } from './storage.service';
+import { AlertController } from '@ionic/angular';
 
 const IP_KEY = 'ip';
 
@@ -11,7 +12,10 @@ export class WebsocketService {
   private ip: string;
   private ws: WebSocket;
 
-  constructor(private storageService: StorageService) {
+  constructor(
+    private alertCtrl: AlertController,
+    private storageService: StorageService
+    ) {
     this.loadIp();
   }
 
@@ -26,6 +30,11 @@ export class WebsocketService {
     this.saveIp();
   }
 
+  isConnected(): boolean {
+    console.log(this.ws.readyState);
+    return this.ws.readyState === 1;
+  }
+
   getIp(): string {
     return this.ip;
   }
@@ -35,13 +44,50 @@ export class WebsocketService {
   }
 
   send(message: any): void {
+    if(!this.isConnected()){
+      this.connect();
+    }
     this.ws.send(JSON.stringify(message));
   }
 
   loadIp(): void {
-    this.storageService.getItems(IP_KEY).then((ip: string) => {
-      this.ip = ip;
-      this.connect();
+    this.storageService.load(IP_KEY).then((ip: string) => {
+      if(ip != null){
+        this.ip = ip;
+        this.connect();
+      } else {
+        this.presentChangeIp();
+      }
+    });
+  }
+
+  presentChangeIp(): void {
+    this.alertCtrl.create({
+      header: 'Enter IP',
+      inputs: [
+        {
+          name: 'IP',
+          value: this.ip,
+          type: 'text',
+          placeholder: 'ip'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'danger'
+        },
+        {
+          text: 'Ok',
+          cssClass: 'primary',
+          handler: (data) => {
+            this.setIp(data.IP);
+          }
+        }
+      ]
+    }).then(alert => {
+      alert.present();
     });
   }
 }

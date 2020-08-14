@@ -77,7 +77,7 @@ export class AnimationsService {
 
   loadAnimations(): void {
     this.storageService
-      .getItems(ANIMATION_KEY)
+      .load(ANIMATION_KEY)
       .then((animations: StandardAnimation[]) => {
         if (animations != null) {
           for (const iterator of animations) {
@@ -126,7 +126,7 @@ export class AnimationsService {
 
   loadFavAnimations(): void {
     this.storageService
-      .getItems(FAV_ANIMATION_KEY)
+      .load(FAV_ANIMATION_KEY)
       .then((animations: Animation[]) => {
         if (animations != null) {
           for (const iterator of animations) {
@@ -170,7 +170,7 @@ export class AnimationsService {
 
   loadCustomAnimations(): void {
     this.storageService
-      .getItems(CUSTOM_ANIMATION_KEY)
+      .load(CUSTOM_ANIMATION_KEY)
       .then((animations: CustomAnimation[]) => {
         if (animations != null) {
           for (const iterator of animations) {
