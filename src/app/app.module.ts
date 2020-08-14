@@ -14,10 +14,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ManageLedComponent } from './components/manage-led/manage-led.component';
 import { FormsModule } from '@angular/forms';
+import { MenuComponent } from './components/menu/menu.component';
+import { AnimationCreationComponent } from './components/animation-creation/animation-creation.component';
 
 
 @NgModule({
-  declarations: [AppComponent, ManageLedComponent],
+  declarations: [AppComponent, ManageLedComponent, MenuComponent, AnimationCreationComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

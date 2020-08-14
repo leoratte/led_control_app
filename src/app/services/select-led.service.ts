@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { StorageService } from './storage.service';
 import { ManageLedComponent } from '../components/manage-led/manage-led.component';
-import { PRIMARY_OUTLET } from '@angular/router';
 
 export interface Led {
   id: number;

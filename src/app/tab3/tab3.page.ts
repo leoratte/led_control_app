@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonReorderGroup } from '@ionic/angular';
+import { IonReorderGroup, ModalController } from '@ionic/angular';
 
 import { AnimationsService, Animation, CustomAnimation } from '../services/animations.service';
 import { SelectLedService } from '../services/select-led.service';
+import { AnimationCreationComponent } from '../components/animation-creation/animation-creation.component';
 
 @Component({
   selector: 'app-tab3',
@@ -19,7 +20,8 @@ export class Tab3Page {
 
   constructor(
     private animationService: AnimationsService,
-    private selectLedService: SelectLedService
+    private selectLedService: SelectLedService,
+    private modalCtrl: ModalController
     ) {
     this.animations = this.animationService.getAllAnimations();
     this.customAnimations = this.animationService.getAllCustomAnimations();
@@ -53,5 +55,12 @@ export class Tab3Page {
 
   removeCustom(animation: CustomAnimation): void {
     this.animationService.removeCustom(animation);
+  }
+
+  async presentCreateAnimation() {
+    const modal: HTMLIonModalElement = await this.modalCtrl.create({
+      component: AnimationCreationComponent,
+    });
+    return await modal.present();
   }
 }

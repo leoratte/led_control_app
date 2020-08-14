@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AnimationsService, CustomAnimation, AnimationStep } from '../services/animations.service';
-import { Router } from '@angular/router';
+import { AnimationsService, CustomAnimation, AnimationStep } from '../../services/animations.service';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-animation-creation',
-  templateUrl: './animation-creation.page.html',
-  styleUrls: ['./animation-creation.page.scss'],
+  templateUrl: './animation-creation.component.html',
+  styleUrls: ['./animation-creation.component.scss'],
 })
-export class AnimationCreationPage implements OnInit {
+export class AnimationCreationComponent implements OnInit {
   animation: CustomAnimation = {
     name: '',
     type: 'custom',
@@ -22,11 +22,9 @@ export class AnimationCreationPage implements OnInit {
   };
   constructor(
     private animationService: AnimationsService,
-    private router: Router
+    private modalCtrl: ModalController
     ) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   addStep() {
     this.animationStep.id = this.animation.steps.length;
@@ -35,10 +33,10 @@ export class AnimationCreationPage implements OnInit {
     }
   }
 
-  finish() {
+  async finish() {
     if (this.animation.name.length > 0 && this.animation.steps.length > 0) {
       if (this.animationService.addCustomAnimation(this.animation)) {
-        this.router.navigate(['/tabs/tab3']);
+        await this.modalCtrl.dismiss();
       }
     }
   }
