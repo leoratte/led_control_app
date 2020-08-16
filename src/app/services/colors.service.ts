@@ -43,9 +43,12 @@ export class ColorsService {
 
   load(): void {
     this.storageService.load(COLOR_KEY).then((colors: string[]) => {
-      for (const iterator of colors) {
-        this.addColor(iterator);
+      if(colors != null){
+        for (const iterator of colors) {
+          this.addColor(iterator);
+        }
       }
+      
     });
   }
 

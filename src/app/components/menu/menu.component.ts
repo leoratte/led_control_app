@@ -12,7 +12,10 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private websocketService: WebsocketService,
-    private selectLedService: SelectLedService) { }
+    private selectLedService: SelectLedService
+    ) { 
+
+    }
 
   ngOnInit() {}
 
@@ -22,11 +25,6 @@ export class MenuComponent implements OnInit {
 
   connect(): void {
     this.websocketService.connect();
-  }
-
-  onClick(event: any) {
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
-    // console.log(systemDark);
   }
 
   manageLed(): void {

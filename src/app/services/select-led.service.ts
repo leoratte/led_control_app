@@ -39,9 +39,12 @@ export class SelectLedService {
 
   load(): void {
     this.storageService.load(LEDMAP_KEY).then((ledmap: Led[]) => {
-      if (ledmap.length === 5) {
-        this.ledmap = ledmap;
+      if (ledmap != null) {
+        if (ledmap.length === 5) {
+          this.ledmap = ledmap;
+        }
       }
+      
     });
   }
 

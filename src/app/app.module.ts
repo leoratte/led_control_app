@@ -16,10 +16,17 @@ import { ManageLedComponent } from './components/manage-led/manage-led.component
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './components/menu/menu.component';
 import { AnimationCreationComponent } from './components/animation-creation/animation-creation.component';
+import { DarkmodeToggleComponent } from './components/darkmode-toggle/darkmode-toggle.component';
 
 
 @NgModule({
-  declarations: [AppComponent, ManageLedComponent, MenuComponent, AnimationCreationComponent],
+  declarations: [
+    AppComponent,
+    ManageLedComponent, 
+    MenuComponent, 
+    AnimationCreationComponent,
+    DarkmodeToggleComponent
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
